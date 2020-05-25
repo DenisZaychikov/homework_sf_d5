@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Друзья</title>
+</head>
+<body>
+    {% for friend in friends %}
+        <ul>
+            <li><a href="{% url 'friend_info' id=friend.id %}">{{ friend.full_name }}</a></li>
+        </ul>
+    {% endfor %}
+    <a href="{% url 'add_friend' %}"><input type="button" value="Добавить друга"></a>
+    <p><a href="{% url 'index' %}">Home</a></p>
+</body>
+</html>
