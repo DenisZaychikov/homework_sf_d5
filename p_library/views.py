@@ -88,7 +88,6 @@ def add_friend(request):
 def friend_info(request, id):
     person = Friend.objects.get(id=id)
     person_books = Book.objects.filter(friend_name=person).all()
-    print(person_books)
     books = Book.objects.filter(is_available=True)
     context = {
         'person': person.full_name,
@@ -109,8 +108,16 @@ def add_book(request):
         book.friend_name = person
         book.is_available = False
         book.save()
-        return redirect('/')
-    else:
-        return redirect('/')
+        return redirect(f'/friend_info/{friend_id}')
 
 
+def delete_book(request):
+    if request.method == 'POST':
+        friend_id = request.POST.get('id')
+        book_title = request.POST.get('book')
+        book = Book.objects.get(title=book_title)
+        book.is_available = True
+        #person = Friend.objects.filter(id=friend_id)
+        book.friend_name = None
+        book.save()
+        return redirect(f'/friend_info/{friend_id}')
