@@ -35,6 +35,7 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, default=None)
     pb_house = models.ForeignKey(PublishingHouse, null=True, on_delete=models.CASCADE)
     friend_name = models.ForeignKey(Friend, null=True, on_delete=models.CASCADE)
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

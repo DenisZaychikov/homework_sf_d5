@@ -10,5 +10,6 @@ urlpatterns = [
     path('pb_houses_books/', views.pb_houses_books, name='pb_houses_books'),
     path('friends_list/', views.friends_list, name='friends_list'),
     path('add_friend/', views.add_friend, name='add_friend'),
-    path('friend_info/<int:id>', views.friend_info, name='friend_info'),
+    path('friend_info/<int:id>/', views.friend_info, name='friend_info'),
+    path('add_book/', views.add_book),
 ]

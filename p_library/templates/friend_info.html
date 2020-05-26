@@ -6,24 +6,34 @@
 </head>
 <body>
     <h1>Имя: {{ person }}</h1>
-    <h1>Взраст: {{ age }}</h1>
+    <h1>Возраст: {{ age }}</h1>
     {% if person_books|length == 0 %}
         <h1>Книги: Пока еще нет ни одной</h1>
     {% else %}
+        <h1>Книги: </h1>
         <ul>
             {% for person_book in person_books %}
-                <li>person_book.title</li>
+                <li>{{ person_book.title }}</li>
             {% endfor %}
         </ul>
     {% endif %}
-    <form action="">
-        <select name="book" id="">
+    <form action="add_book/" method="post">
+        {% csrf_token %}
+        <select name="book">
             {% for book in books %}
                 <option value="{{ book }}">{{ book }}</option>
             {% endfor %}
         </select>
-        <p><input type="button" value="Добавить книгу"></p>
-        <p><input type="button" value="Забрать книгу"></p>
+        <p><input type="hidden" name="id" value="{{ friend_id }}"></p>
+        <p><input type="submit" value="Добавить книгу"></p>
     </form>
+    <!--<form action="">
+        <select name="book">
+            {% for person_book in person_books %}
+                <option value="{{ person_book }}">{{ prson_book }}</option>
+            {% endfor %}
+        </select>
+        <p><input type="button" value="Забрать книгу"/></p>
+    </form>-->
 </body>
 </html>

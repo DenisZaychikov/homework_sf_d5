@@ -88,11 +88,29 @@ def add_friend(request):
 def friend_info(request, id):
     person = Friend.objects.get(id=id)
     person_books = Book.objects.filter(friend_name=person).all()
-    books = Book.objects.all()
+    print(person_books)
+    books = Book.objects.filter(is_available=True)
     context = {
         'person': person.full_name,
         'age': person.age,
         'person_books': person_books,
         'books': books,
+        'friend_id': id,
     }
     return render(request, 'friend_info.html', context)
+
+
+def add_book(request):
+    if request.method == 'POST':
+        friend_id = request.POST.get('id')
+        book_title = request.POST.get('book')
+        person = Friend.objects.get(id=friend_id)
+        book = Book.objects.get(title=book_title)
+        book.friend_name = person
+        book.is_available = False
+        book.save()
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
